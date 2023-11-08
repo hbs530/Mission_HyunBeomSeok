@@ -31,8 +31,21 @@ public class App {
                 break;
                 // 대입된 cmd 변수가 “종료”와 동일하다는 조건이면 해당 조건문을 탈출
             }
-            System.out.printf("입력받은 명령어 : %s\n", cmd);
-            // cmd 변수를 문자열 출력문 %s에 대입 후 출력
+            else if (cmd.equals("등록")) {
+            // 두 객체가 내용이 같은지 비교할 떄 사용되는 equals 메서드를 사용하여 입력된 cmd 변수가 등록과 같으면
+
+                System.out.print("명언 : ");
+                // 명언 : 출력
+
+                String content = scanner.nextLine();
+                // scanner 인스턴스로 Scanner 클래스에서 제공되는 nextLine 메서드를 호출하여 리턴 값을 문자열 변수 content에 대입
+
+                System.out.print("작가 : ");
+                // 작가 : 출력
+
+                String authorName = scanner.nextLine();
+                // scanner 인스턴스로 Scanner 클래스에서 제공되는 nextLine 메서드를 호출하여 리턴 값을 문자열 변수 authorName에 대입
+            }
         }
     }
 }
