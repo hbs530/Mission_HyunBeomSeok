@@ -20,7 +20,7 @@ public class App {
     List<Quotation> quotations;
     // Quotation 클래스를 매개변수로 넣은 List의 인스턴스 quotations 선언
 
-    App(){
+    App() {
     // App 생성자 선언
 
         scanner = new Scanner(System.in);
@@ -32,13 +32,14 @@ public class App {
         quotations = new ArrayList<>();
         // ArrayList의 생성자로 인하여 인스턴스 quotations 생성 및 초기화
     }
+
     void run() {
     // 반환 값이 없는 void를 반환 유형으로 한 run 메서드 선언\
 
         System.out.println("== 명언 앱 ==");
         // == 명언 앱 == 출력 후 줄 바꿈
 
-        while(true) {
+        while (true) {
         // 항상 참인 조건을 가진 무한 루프
 
             System.out.print("명령) ");
@@ -47,41 +48,58 @@ public class App {
             String cmd = scanner.nextLine();
             // scanner 인스턴스로 Scanner 클래스에서 제공되는 nextLine 메서드를 호출하여 리턴 값을 문자열 변수 cmd에 대입
 
-            if (cmd.equals("종료")){
-            // 두 객체가 내용이 같은지 비교할 떄 사용되는 equals 메서드를 사용하여 입력된 cmd 변수가 종료와 같으면
+            Rq rq = new Rq(cmd);
+            // 문자열 변수 cmd를 매개변수로 하는 Rq 생성자로 인하여 rq 객체 생성 및 초기화
 
-                break;
-                // 해당 조건문을 탈출
+            switch (rq.getAction()) {
+            // 참조 변수 rq가 가리키는 곳의 객체 안에 있는 메서드인 getAction() 호출 하면
 
+                case "종료":
+                // 인스턴스 rq의 getAction 메서드의 리턴 값이 "종료"와 동일하면
+
+                    return;
+                    // switch 조건문을 종료하고 메서드를 호출한 장소인 인스턴스 rq의 getAction 메서드로 이동
+
+                case "등록":
+                // 인스턴스 rq의 getAction 메서드의 리턴 값이 "등록"과 동일하면
+
+                    actionWrite();
+                    // actionWrite 메서드 호출
+
+                    break;
+                    // swtich 조건문을 탈출
+
+                case "목록":
+                // 인스턴스 rq의 getAction 메서드의 리턴 값이 "목록"과 동일하면
+
+                    actionList();
+                    // actionList 메서드 호출
+
+                    break;
+                    // swtich 조건문을 탈출
+
+                case "삭제":
+                // 인스턴스 rq의 getAction 메서드의 리턴 값이 "삭제"와 동일하면
+
+                    actionRemove(rq);
+                    // 인스턴스 rq를 인수로 하는 actionRemove 메서드 호출
+
+                    break;
+                    // switch 조건문을 탈출
+
+                case "수정":
+                // 인스턴스 rq의 getAction 메서드의 리턴 값이 "수정"과 동일하면
+
+                    actionModify(rq);
+                    // 인스턴스 rq를 인수로 하는 actionRemove 메서드 호출
+
+                    break;
+                    // switch 조건문을 탈출
             }
-            else if (cmd.equals("등록")) {
-            // 두 객체가 내용이 같은지 비교할 떄 사용되는 equals 메서드를 사용하여 입력된 cmd 변수가 등록과 같다는 다른 조건이면
-
-                actionWrite();
-                // actionWrite 메서드 호출
-
-            }
-            else if (cmd.equals("목록")){
-            // 두 객체가 내용이 같은지 비교할 떄 사용되는 equals 메서드를 사용하여 입력된 cmd 변수가 목록과 같다는 다른 조건이면
-
-                actionList();
-                // actionList() 메서드 호출
-            }
-            else if (cmd.startsWith("삭제?")){
-            // 특정 문자열로 시작되는지 확인하는 startsWith 메서드를 사용하여 입력된 cmd 변수가 삭제?로 시작하는 다른 조건이면
-                
-                actionRemove(cmd);
-                // cmd를 인수로 하는 actionRemove 메서드 호출
-            }
-            else if (cmd.startsWith("수정?"))
-            // 특정 문자열로 시작되는지 확인하는 startsWith 메서드를 사용하여 입력된 cmd 변수가 수정?로 시작하는 다른 조건이면
-
-                actionModify(cmd);
-                // cmd를 인수로 하는 actionModify 메서드 호출
         }
     }
 
-    void actionWrite(){
+    void actionWrite() {
     // 리턴 값이 없는 void 형 actionWrite() 메서드 선언
 
         System.out.print("명언 : ");
@@ -110,123 +128,113 @@ public class App {
 
         System.out.printf("%d번 명언이 등록되었습니다.\n", lastQuotationId);
         // Quotation 클래스의 기능을 사용할 수 있는 quotation 객체 생성 및 id, content, authorName 초기화
-
     }
 
-    void actionList(){
+    void actionList() {
     // 리턴값이 없는 void 형 actionList() 메서드 선언
 
         System.out.println("번호 / 작가 / 명언");
         // 번호 / 작가 / 명언 출력 후 줄 바꿈
 
-        System.out.println("------------------");
+        System.out.println("----------------------");
         // ------------------ 출력 후 줄 바꿈
 
-        if(quotations.isEmpty())
+        if (quotations.isEmpty())
         // 참조 변수 quotations의 데이터의 존재 여부를 확인하여 데이터가 하나도 없을 때만 true를 리턴하는 isEmpty() 메서드 호출시
 
             System.out.println("등록된 명언이 없습니다.");
-            // 데이터가 하나도 없어 true 값을 리턴하면 "등록된 명언이 없습니다." 출력
+            // 데이터가 하나도 없어 true 값을 리턴하면 "등록된 명언이 없습니다." 출력 후 줄 바꿈
 
-        for(int i = quotations.size() - 1; i >= 0; i--){
-        // 인스턴스 quotations의 리스트 객체 내에 포암된 원소의 개수를 호출하는 size() 메서드 -1을 대입한 int 형 변수 i를 초기화하여 0보다 크면 아래 코드를 수행 후 i 값을 -1
+        for (int i = quotations.size() - 1; i >= 0; i--) {
+        // 인스턴스 quotations의 리스트 객체 내에 포암된 원소의 개수를 호출하는 size() 메서드를 호출 한 후의 리턴 값에서
+        // -1을 대입한 int 형 변수 i를 초기화하여 0보다 크면 아래 코드를 수행 후 i 값을 -1
 
             Quotation quotation = quotations.get(i);
             // 인스턴스 quotations의 인덱스 위치의 원소값을 꺼내 리턴하는 get() 메서드를 이용하여 호출된 값을 인스턴스 quotation에 대입
 
             System.out.printf("%d / %s / %s\n", quotation.id, quotation.authorName, quotation.content);
-            // 참조 변수 quotation에 명언을 저장하는 정수형 필드 id,작가 이름을 저장하는 문자형 필드 content,작가 이름을 저장하는 authorName 필드에 각각 접근하여 정수 출력 형식 %d, 문자열 출력 형식 %s에 각각 대입하여 출력
+            // 참조 변수 quotation에 명언을 저장하는 정수형 필드 id,작가 이름을 저장하는 문자형 필드 content,
+            // 작가 이름을 저장하는 authorName 필드에 각각 접근하여 정수 출력 형식 %d, 문자열 출력 형식 %s에 각각 대입하여 출력
         }
     }
 
-    void actionRemove(String cmd){
-    // 문자열 변수 cmd를 매개변수로 하는 리턴 값이 없는 void 형 actionRemove 메서드 선언
+    void actionRemove(Rq rq) {
+    // Rq 클래스의 rq 인스턴스를 인수로 하는 리턴 값이 없는 void 형 actionRemove() 메서드 선언
 
-        int id = getParamAsInt(cmd, "id", 0);
-        // cmd, paranName은 "id", defaultValue를 0으로 하여 getParamAsInt 메서드를 호출한 후 리턴 값을 정수형 변수 id에 대입
+        int id = rq.getParamAsInt("id", 0);
+        // 문자열 변수 paramName은 "id", 정수형 변수 defaultvalue는 0을 인수로 하는
+        // rq 인스턴스의 getParamAsInt() 메서드를 호출 한 후 리턴 값을 정수 형 변수 id에 대입
 
-        if (id == 0){
+        if (id == 0) {
         // id가 0이면
 
             System.out.println("id를 정확히 입력해주세요.");
-            // "id를 정확히 입력해주세요." 출력
+            // "id를 정확히 입력해주세요." 출력 후 줄 바꿈
 
             return;
-            // if 조건문을 종료하고 호출한 getParamAsInt 메서드로 이동
+            // if 조건문을 종료하고 호출한 장소로 이동
         }
-        System.out.printf("%d번 명언을 삭제합니다.\n", id);
-        // id가 0이 아니면 0이 아닌 id를 정수 출력 형식인 %d에 대입한 "%d번 명언을 삭제합니다." 출력 후 줄 바꿈
+
+        int index = getIndexOfQuotationById(id);
+        // 정수형 변수 id를 인수로 하는 getIndexOfQuotationById 메서드를 호출 후 리턴 값을 정수형 변수 index에 대입
+
+        if (index == -1) {
+        // 정수형 변수 index가 -1이면
+
+            System.out.printf("%d번 명언은 존재하지 않습니다.\n", id);
+            // 정수형 변수 id를 정수 출력 형식 %d에 대입하여 "%d번 명언은 존재하지 않습니다." 출력 후 줄 바꿈
+
+            return;
+            // if 조건문을 종료하고 호출한 장소로 이동
+        }
+
+        quotations.remove(index);
+        // 인스턴스 quotations의 정수형 변수 인덱스 값을 삭제하는 remove 리스트 메서드를 호출
+        
+        System.out.printf("%d번 명언을 삭제되었습니다.\n", id);
+        // 정수형 변수 id를 정수 출력 형식 %d에 대입하여 "%d번 명언을 삭제되었습니다." 출력 후 줄 바꿈
     }
 
-    void actionModify(String cmd){
-    // 문자열 변수 cmd를 매개변수로 하는 리턴 값이 없는 void 형 actionModify 메서드 선언
+    int getIndexOfQuotationById(int id) {
+    // 정수형 변수 id를 매개변수로 하는 getInOfQuotationById() 메서드 선언
 
-        int id = getParamAsInt(cmd, "id", 0);
-        // cmd, paranName은 "id", defaultValue를 0으로 하여 getParamAsInt 메서드를 호출한 후 리턴 값을 정수형 변수 id에 대입
+        for (int i = 0; i < quotations.size(); i++) {
+        // 0으로 초기화된 정수형 변수 i가 인스턴스 quotations의 리스트 객체 내에 포함된
+        // 원소의 갯수를 나타내는 size 리스트 메서드 보다 작으면 아레 코드를 실행하고 i변수 +1
 
-        if (id == 0){
-        // id가 0이면
+            Quotation quotation = quotations.get(i);
+            // 인스턴스 quotations의 인덱스 위치의 원소값을 꺼내 리턴하는
+            // get() 메서드를 호출한 후 리턴 값을 인스턴스 quotation에 대입
+
+            if (quotation.id == id) {
+            // 인스턴스 quotation의 정수형 필드 id가 입력된 id와 같다면
+
+                return i;
+                // 정수형 필드 i를 메서드를 호출한 quotations.get(i)로 이동하고 메서드 종료
+            }
+        }
+
+        return -1;
+        // 관용적으로 함수의 오류 발생시 -1을 메서드를 호출한 quotations.size()로 이동하고 메서도 종료
+    }
+
+    void actionModify(Rq rq) {
+    // rq를 매개변수로 하여 리턴 값이 없는 void 형 run() 메서드 선언
+
+        int id = rq.getParamAsInt("id", 0);
+        // 문자열 변수 paramName은 "id", 정수형 변수 defaultvalue는 0인 getParamAsInt() 메서드에 접근한 rq 객체를 정수형 변수 id에 대입
+
+        if (id == 0) {
+        // 정수형 변수 id가 0이면
 
             System.out.println("id를 정확히 입력해주세요.");
-            // "id를 정확히 입력해주세요." 출력
+            // "id를 정확히 입력해주세요." 출력 후 개행 표시
 
-            return;
-            // actionModify() 메서드를 종료하고 호출한 곳으로 이동
+            return; // 함수를 끝낸다.
+            // 메서드를 호출한 장소로 이동하고 메서드 종료
         }
 
         System.out.printf("%d번 명언을 수정합니다.\n", id);
-        // id가 0이 아니면 0이 아닌 id를 정수 출력 형식인 %d에 대입한 "%d번 명언을 수정합니다." 출력 후 줄 바꿈
-    }
-    int getParamAsInt(String cmd, String paramName, int defaultValue){
-    // 문자열 변수 cmd, paramName, 정수형 변수 defaultValue를 매개변수로 하는 getParamAsInt 매서드 선언
-
-        String[] cmdBits = cmd.split("\\?", 2);
-        // 문자열 변수 cmd를 구분자를 기준으로 문자열을 잘라 배열로 입력할 떄 사용하는 split() 메서드를 이용하여
-        // 정규표현식 regex인 \\?를 기준으로 limit 크기 2만큼 잘려진 수들을 문자열 배열 변수 cmdBits에 대입
-
-        String queryString = cmdBits[1];
-        // cmdBits[1]을 문자열 변수 queryString에 대입
-
-        String[] queryStringBits = queryString.split("&");
-        // 문자열 변수 queryString을 구분자를 기준으로 문자열을 잘라 배열로 입력할 떄 사용하는 split() 메서드를 이용하여
-        // 정규표현식 regex인 & 기준으로 잘려진 수들을 문자열 배열 변수 queryStringBits에 대입
-
-        for (int i = 0; i < queryStringBits.length; i++){
-        // 0으로 초기화된 정수형 변수 i가 문자열 배열 queryStringBits 변수의 길이를 나타내는 length 속성보다 작으면 아래 코드를 실행하고 i값을 +1
-
-            String queryParamStr = queryStringBits[i];
-            // 배열 크기가 i인 문자열 배열 queryStringBits 변수를 문자열 변수 queryParamStr에 대입
-
-            String[] queryParamStrBits = queryParamStr.split("=", 2);
-            // 문자열 변수 queryParamStr를 구분자를 기준으로 문자열을 잘라 배열로 입력할 떄 사용하는 split() 메서드를 이용하여
-            // 정규표현식 regex인 = 기준으로 limit 크기 2만큼 잘려진 수들을 문자열 배열 변수 queryParamStrBits에 대입
-
-            String _paramName = queryParamStrBits[0];
-            // 배열 크기가 0인 문자열 배열 queryParamStrBits를 문자열 변수__paramName에 대입
-
-            String paramValue = queryParamStrBits[1];
-            // 배열 크기가 1인 문자열 배열 queryParamStrBits를 문자열 변수 paramValue에 대입
-
-            if(_paramName.equals(paramName)){
-            // 두 객체가 내용이 같은지 비교할 떄 사용되는 equals 메서드를 사용하여 입력된 cmd 변수가 종료와 같으면
-
-                try{
-                // 예외 발생시 처리
-
-                    return Integer.parseInt(paramValue);
-                    // 문자열 변수 paramValue를 인자로 받아 파싱하여 정수로 반환하는 Integer.parseInt() 메서드를 사용하여 리턴
-
-                }
-                catch (NumberFormatException e) {
-                // 문자열을 숫자 또는 실수로 변환할 떄 문자열이 변환하고자 하는 숫자 형식이 아니면 반환이 실패 할때 발생하는 실행 예외인 NumberFormatException 발생시 처리
-
-                    return defaultValue;
-                    // 정수형 변수 defaultValue 리턴
-                }
-            }
-        }
-        return defaultValue;
-        // 정수형 변수 defaultValue 리턴
+        // id가 0이 아니면 0이 아닌 id를 정수 출력 형식인 %d에 대입한 "%d번 명언을 삭제합니다." 출력 후 줄 바꿈
     }
 }
-

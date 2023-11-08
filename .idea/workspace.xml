@@ -7,6 +7,8 @@
     <list default="true" id="a4da55fa-9fe2-491a-9cd1-29f59d6c204b" name="변경" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/ll/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ll/App.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ll/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ll/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/ll/Quotation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/ll/Quotation.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,6 +35,12 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectColorInfo"><![CDATA[{
   "associatedIndex": 3
@@ -61,6 +69,9 @@
   }
 }]]></component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\hbs53\IdeaProjects\Mission_HyunBeomSeok" />
+    </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="com.ll" />
     </key>
@@ -73,7 +84,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1699398268268</updated>
-      <workItem from="1699398268938" duration="13271000" />
+      <workItem from="1699398268938" duration="31356000" />
     </task>
     <servers />
   </component>
