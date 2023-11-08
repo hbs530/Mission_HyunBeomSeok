@@ -45,6 +45,9 @@ public class App {
 
                 String authorName = scanner.nextLine();
                 // scanner 인스턴스로 Scanner 클래스에서 제공되는 nextLine 메서드를 호출하여 리턴 값을 문자열 변수 authorName에 대입
+
+                System.out.println("1번 명언이 등록 되었습니다.");
+                // 1번 명언이 등록 되었습니다. 출력
             }
         }
     }
