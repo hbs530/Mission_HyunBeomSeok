@@ -10,11 +10,14 @@ public class App {
     public void run() {
         // 반환 값이 없는 void를 반환 유형으로 한 run 메서드 선언
 
+        System.out.println("== 명언 앱 ==");
+        // == 명언 앱 == 출력 후 줄 바꿈
+
+        int lastQuotationId = 0;
+        // 명언의 횟수를 저장하는 lastQuotationId 변수를 0으로 초기화
+
         while(true) {
         // 항상 참인 조건을 가진 무한 루프
-
-            System.out.println("== 명언 앱 ==");
-            // == 명언 앱 == 출력 후 줄 바꿈
 
             System.out.print("명령) ");
             // 명령) 출력
@@ -46,8 +49,11 @@ public class App {
                 String authorName = scanner.nextLine();
                 // scanner 인스턴스로 Scanner 클래스에서 제공되는 nextLine 메서드를 호출하여 리턴 값을 문자열 변수 authorName에 대입
 
-                System.out.println("1번 명언이 등록 되었습니다.");
-                // 1번 명언이 등록 되었습니다. 출력
+                lastQuotationId++;
+                // 명언을 입력하였으므로 명언의 횟수를 저장하는 lastQuotationId 변수를 +1
+
+                System.out.printf("%d번 명언이 등록 되었습니다.\n", lastQuotationId);
+                // +1이 된 lastQuotationId 변수 + 명언이 등록되었습니다. 출력
             }
         }
     }
