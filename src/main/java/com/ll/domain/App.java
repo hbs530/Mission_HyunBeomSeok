@@ -1,4 +1,4 @@
-package com.ll;
+package com.ll.domain;
 // 패키지는 자바 클래스를 모아놓은 폴더
 
 import java.util.ArrayList;
@@ -13,14 +13,14 @@ import java.util.Scanner;
 
 public class App {
 // App 클래스 선언
-    Scanner scanner;
+    private Scanner scanner;
     // Scanner 클래스의 scanner 인스턴스 선언
-    int lastQuotationId;
+    private int lastQuotationId;
     // 명언의 횟수를 저장하는 lastQuotationId 변수 선언
-    List<Quotation> quotations;
+    private List<Quotation> quotations;
     // Quotation 클래스를 매개변수로 넣은 List의 인스턴스 quotations 선언
 
-    App() {
+    public App() {
     // App 생성자 선언
 
         scanner = new Scanner(System.in);
@@ -33,7 +33,7 @@ public class App {
         // ArrayList의 생성자로 인하여 인스턴스 quotations 생성 및 초기화
     }
 
-    void run() {
+    public void run() {
     // 반환 값이 없는 void를 반환 유형으로 한 run 메서드 선언\
 
         System.out.println("== 명언 앱 ==");
@@ -43,7 +43,7 @@ public class App {
         // 항상 참인 조건을 가진 무한 루프
 
             System.out.print("명령) ");
-            // 명령) 출력
+             // 명령) 출력
 
             String cmd = scanner.nextLine();
             // scanner 인스턴스로 Scanner 클래스에서 제공되는 nextLine 메서드를 호출하여 리턴 값을 문자열 변수 cmd에 대입
@@ -99,20 +99,13 @@ public class App {
         }
     }
 
-    void actionWrite() {
+    private void actionWrite() {
     // 리턴 값이 없는 void 형 actionWrite() 메서드 선언
-
         System.out.print("명언 : ");
-        // 명언 : 출력
-
         String content = scanner.nextLine();
-        // scanner 인스턴스로 Scanner 클래스에서 제공되는 nextLine 메서드를 호출하여 리턴 값을 문자열 변수 content에 대입
 
         System.out.print("작가 : ");
-        // 작가 : 출력
-
         String authorName = scanner.nextLine();
-        // scanner 인스턴스로 Scanner 클래스에서 제공되는 nextLine 메서드를 호출하여 리턴 값을 문자열 변수 authorName에 대입
 
         lastQuotationId++;
         // 명언을 입력하였으므로 명언의 횟수를 저장하는 lastQuotationId 변수를 +1
@@ -130,7 +123,7 @@ public class App {
         // Quotation 클래스의 기능을 사용할 수 있는 quotation 객체 생성 및 id, content, authorName 초기화
     }
 
-    void actionList() {
+    private void actionList() {
     // 리턴값이 없는 void 형 actionList() 메서드 선언
 
         System.out.println("번호 / 작가 / 명언");
@@ -158,7 +151,7 @@ public class App {
         }
     }
 
-    void actionRemove(Rq rq) {
+    private void actionRemove(Rq rq) {
     // Rq 클래스의 rq 인스턴스를 인수로 하는 리턴 값이 없는 void 형 actionRemove() 메서드 선언
 
         int id = rq.getParamAsInt("id", 0);
@@ -175,7 +168,7 @@ public class App {
             // if 조건문을 종료하고 호출한 장소로 이동
         }
 
-        int index = getIndexOfQuotationById(id);
+        int index = findQuotationIndexById(id);
         // 정수형 변수 id를 인수로 하는 getIndexOfQuotationById 메서드를 호출 후 리턴 값을 정수형 변수 index에 대입
 
         if (index == -1) {
@@ -195,7 +188,7 @@ public class App {
         // 정수형 변수 id를 정수 출력 형식 %d에 대입하여 "%d번 명언을 삭제되었습니다." 출력 후 줄 바꿈
     }
 
-    int getIndexOfQuotationById(int id) {
+    private int findQuotationIndexById(int id) {
     // 정수형 변수 id를 매개변수로 하는 getInOfQuotationById() 메서드 선언
 
         for (int i = 0; i < quotations.size(); i++) {
@@ -218,7 +211,7 @@ public class App {
         // 관용적으로 함수의 오류 발생시 -1을 메서드를 호출한 quotations.size()로 이동하고 메서도 종료
     }
 
-    void actionModify(Rq rq) {
+    private void actionModify(Rq rq) {
     // rq를 매개변수로 하여 리턴 값이 없는 void 형 run() 메서드 선언
 
         int id = rq.getParamAsInt("id", 0);
@@ -234,7 +227,47 @@ public class App {
             // 메서드를 호출한 장소로 이동하고 메서드 종료
         }
 
-        System.out.printf("%d번 명언을 수정합니다.\n", id);
+        int index = findQuotationIndexById(id);
+        // 정수형 id 변수를 인수로 하는 findQuotationIndexById .메서드를 호출 후 리턴 값을 정수형 변수 index에 대입
+
+        if(index == -1){
+        // 정수형 변수 index가 명언이 존재 하지 않음을 나타내는 임의의 수인 -1인 조건 이면
+            System.out.printf("%d번 명언은 존재하지 않습니다.\n", id);
+            //정수형 id 변수를 정수값을 형식화하여 출력할 떄 사용하는 형식 지정자 %d에 대입하여 "%d번 명언은 존재하지 않습니다" 출력
+
+            return;
+            // 조건문 종료
+        }
+
+        Quotation quotation = quotations.get(index);
+        // 정수형 변수 index를 인자로 하여 index의 위치에 해당 하는 값을 반환하는데 사용하는 get 메서드 리턴 값을 인스턴스 quotation에 대입
+
+        System.out.printf("명언(기존) : %s\n", quotation.content);
+        // 인스턴스 quotation의 문자열 필드 content에 접근하여 나온 값을 문자열 값을 형식화하여 출력할 떄 사용하는 형식 지정자 %s에 대입하여
+        // "명언(기존) : %s"을 출력한 후 프로그래밍 언어 특정상 표현할 수 없는 기능, 문자를 표현 해주는 이스케이프 시퀸스 중 하나인 \n로 줄 바꿈
+
+        System.out.print("명언 : ");
+        // 명언 : 출력
+
+        String content = scanner.nextLine();
+        // scanner 인스턴스로 Scanner 클래스에서 제공되는 nextLine 메서드를 호출하여 리턴 값을 문자열 필드 authorName에 대입
+
+        System.out.printf("작가(기존) : %s\n", quotation.authorName);
+        // 인스턴스 quotation의 문자열 필드 authorName에 접근하여 나온 값을 문자열 값을 형식화하여 출력할 떄 사용하는 형식 지정자 %s에 대입하여
+        // "작가(기존) : %s"을 출력한 후 프로그래밍 언어 특정상 표현할 수 없는 기능, 문자를 표현 해주는 이스케이프 시퀸스 중 하나인 \n로 줄 바꿈
+
+        System.out.print("작가 : ");
+        // 작가 : 출력
+
+        String authorName = scanner.nextLine();
+        // scanner 인스턴스로 Scanner 클래스에서 제공되는 nextLine 메서드를 호출하여 리턴 값을 문자열 authorName 필드에 대입
+
+        quotation.content = content;
+        // 수정된 명언를 인스턴스 quotation의 필드 content에 대입하여 갱신
+        quotation.authorName = authorName;
+        // 수정된 작가를 인스턴스 quotaiton의 필드 authorName에 대입하여 갱신
+
+        System.out.printf("%d번 명언을 수정되었습니다.\n", id);
         // id가 0이 아니면 0이 아닌 id를 정수 출력 형식인 %d에 대입한 "%d번 명언을 삭제합니다." 출력 후 줄 바꿈
     }
 }

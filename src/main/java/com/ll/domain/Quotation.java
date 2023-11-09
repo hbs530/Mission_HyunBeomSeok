@@ -1,15 +1,15 @@
-package com.ll;
+package com.ll.domain;
 // 패키지는 자바 클래스를 모아놓은 폴더
 public class Quotation {
 // Quotation 클래스 선언
 
-    int id;
+    public int id;
     // 작가와 명언의 번호를 저장하는 정수형 필드 id 선언
 
-    String content;
+    public String content;
     // 명언을 저장하는 문자형 필드 content 선언
 
-    String authorName;
+    public String authorName;
     // 작가를 저장하는 문자형 필드 authorName 선언
 
     public Quotation(int id, String content, String authorName){

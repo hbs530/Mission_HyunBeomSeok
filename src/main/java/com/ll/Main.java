@@ -1,6 +1,8 @@
 package com.ll;
 // 패키지는 자바 클래스를 모아놓은 폴더
 
+import com.ll.domain.App;
+
 public class Main {
     public static void main(String[] args) {
         new App().run();
